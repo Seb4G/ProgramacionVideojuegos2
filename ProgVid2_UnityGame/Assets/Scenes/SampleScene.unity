@@ -380,6 +380,8 @@ GameObject:
   - component: {fileID: 488547053}
   - component: {fileID: 488547055}
   - component: {fileID: 488547051}
+  - component: {fileID: 488547057}
+  - component: {fileID: 488547056}
   m_Layer: 0
   m_Name: Enemigo
   m_TagString: Untagged
@@ -400,9 +402,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -412,7 +414,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &488547053
 SpriteRenderer:
@@ -526,6 +528,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.9, y: 3.1}
   m_EdgeRadius: 0
+--- !u!114 &488547056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488547050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bde3356595d4514299e9aee9b76d2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puntos: 5
+--- !u!114 &488547057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488547050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e292d50b77b51f344a932a9f5424e164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 40
+  jugador: {fileID: 1710129351}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1137,7 @@ GameObject:
   - component: {fileID: 1710129348}
   - component: {fileID: 1710129352}
   - component: {fileID: 1710129353}
+  - component: {fileID: 1710129355}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Untagged
@@ -1234,7 +1264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2706cad69e7d34b8487f7956783804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuerzaSalto: 60
+  fuerzaSalto: 70
 --- !u!61 &1710129354
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1280,6 +1310,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.27451953, y: 0.66}
   m_EdgeRadius: 0
+--- !u!114 &1710129355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710129347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c779eed180a5e3a47bc271aa51789c09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vida: 5
 --- !u!1 &2057347377
 GameObject:
   m_ObjectHideFlags: 0

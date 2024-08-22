@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 488547051}
   - component: {fileID: 488547057}
   - component: {fileID: 488547056}
+  - component: {fileID: 488547058}
   m_Layer: 0
   m_Name: Enemigo
   m_TagString: Untagged
@@ -553,8 +554,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e292d50b77b51f344a932a9f5424e164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 40
+  velocidad: 30
   jugador: {fileID: 1710129351}
+--- !u!114 &488547058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488547050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c1ef663a2d09e4488a975bd34b6873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuerzaSalto: 10
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

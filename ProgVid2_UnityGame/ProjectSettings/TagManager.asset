@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - New tag
+  - New tag (1)
   layers:
   - Default
   - TransparentFX
@@ -11,9 +13,9 @@ TagManager:
   - Jugador
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Plataformas
+  - Enemigos
+  - Pisos
   - 
   - 
   - 
@@ -44,11 +46,11 @@ TagManager:
   - name: Jugador
     uniqueID: 1933689599
     locked: 0
-  - name: Enemigo
-    uniqueID: 2004213695
-    locked: 0
   - name: Plataforma
     uniqueID: 288394527
+    locked: 0
+  - name: Enemigo
+    uniqueID: 2004213695
     locked: 0
   - name: Piso
     uniqueID: 3047869265

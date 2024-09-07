@@ -10,7 +10,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Jugador
+  - 
   - Water
   - UI
   - Plataformas
@@ -43,18 +43,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Jugador
-    uniqueID: 1933689599
+  - name: Fondo
+    uniqueID: 374554161
     locked: 0
-  - name: Plataforma
-    uniqueID: 288394527
+  - name: FondoFrente
+    uniqueID: 188617649
     locked: 0
   - name: Enemigo
     uniqueID: 2004213695
     locked: 0
-  - name: Piso
-    uniqueID: 3047869265
+  - name: Jugador
+    uniqueID: 1933689599
     locked: 0
-  - name: Fondo
-    uniqueID: 374554161
+  - name: Plataformas
+    uniqueID: 288394527
+    locked: 0
+  - name: Pisos
+    uniqueID: 3047869265
     locked: 0

@@ -46,6 +46,9 @@ TagManager:
   - name: Fondo
     uniqueID: 374554161
     locked: 0
+  - name: HealSystem
+    uniqueID: 599270153
+    locked: 0
   - name: FondoFrente
     uniqueID: 188617649
     locked: 0

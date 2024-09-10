@@ -37,7 +37,7 @@ public class Mover : MonoBehaviour
         direccion = new Vector2(moverHorizontal, 0f);
 
         int velocidadX = (int)miRigidbody2D.velocity.x;
-        miSprite.flipX = velocidadX > 0;
+        miSprite.flipX = velocidadX < 0;
         miAnimator.SetInteger("Velocidad", velocidadX);
 
         miAnimator.SetBool("EnAire", !EnContactoConPlataforma());

@@ -5576,7 +5576,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.1, y: -20.1, z: -10}
+  m_LocalPosition: {x: -35, y: -20.3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5866,7 +5866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1274261140}
   - component: {fileID: 1274261139}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fondo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5915,7 +5915,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: aa4bc3ff489fe9f459aed03d4af5af0f, type: 3}
-  m_Color: {r: 0.3210662, g: 0.32541776, b: 0.3679245, a: 1}
+  m_Color: {r: 0.42439482, g: 0.42912292, b: 0.4811321, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6005,7 +6005,7 @@ Transform:
   m_GameObject: {fileID: 1369006703}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.1, y: -20.1, z: -10}
+  m_LocalPosition: {x: -35, y: -20.3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6252,7 +6252,7 @@ Transform:
   m_GameObject: {fileID: 1710129347}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.1, y: -20.1, z: 0}
+  m_LocalPosition: {x: -35, y: -20.3, z: 0}
   m_LocalScale: {x: 30.53208, y: 23.959393, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

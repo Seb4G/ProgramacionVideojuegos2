@@ -11,18 +11,28 @@ public class Jugador : MonoBehaviour
     {
         vida += puntos;
         Debug.Log(EstasVivo());
+        if (!EstasVivo())
+        {
+            TerminarJuego("PERDISTE");
+        }
     }
-
 
     private bool EstasVivo()
     {
         return vida > 0;
     }
 
+    private void TerminarJuego(string mensaje)
+    {
+        Debug.Log(mensaje);
+        Time.timeScale = 0f;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Meta")) { return; }
-
-        Debug.Log("GANASTE");
+        if (collision.gameObject.CompareTag("Meta"))
+        {
+            TerminarJuego("GANASTE");
+        }
     }
 }

@@ -1199,7 +1199,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 1791517101, guid: fddbbb31c5574f54ba43e83588ee4eb7, type: 3}
       - {fileID: 1154383184, guid: fddbbb31c5574f54ba43e83588ee4eb7, type: 3}
-      m_AnimationSpeed: 1
+      m_AnimationSpeed: 1.4307332
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 23, y: -4, z: 0}
@@ -1208,7 +1208,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 1763434009, guid: fddbbb31c5574f54ba43e83588ee4eb7, type: 3}
       - {fileID: -1770637112, guid: fddbbb31c5574f54ba43e83588ee4eb7, type: 3}
-      m_AnimationSpeed: 1
+      m_AnimationSpeed: 1.8557258
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -1807,7 +1807,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &2350023757291596116
+--- !u!114 &4920437815368320583
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

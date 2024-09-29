@@ -7,6 +7,15 @@ public class Jugador : MonoBehaviour
     [Header("Configuracion")]
     [SerializeField] private float vida = 5f;
 
+    [Header("Zona Bloqueada")]
+    [SerializeField] private GameObject[] bloques;
+
+    private void Start()
+    {
+        // Solo si quieres llenar el array de bloques al inicio del juego
+        bloques = GameObject.FindGameObjectsWithTag("BloqueDestructible");
+    }
+
     public void ModificarVida(float puntos)
     {
         vida += puntos;
@@ -32,7 +41,18 @@ public class Jugador : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Meta"))
         {
-            TerminarJuego("GANASTE");
+            DesbloquearZona();
+            Debug.Log("Has llegado a la meta. Zona desbloqueada.");
+        }
+    }
+
+    private void DesbloquearZona()
+    {
+        bloques = GameObject.FindGameObjectsWithTag("BloqueDestructible");
+
+        foreach (GameObject bloque in bloques)
+        {
+            Destroy(bloque);
         }
     }
 }

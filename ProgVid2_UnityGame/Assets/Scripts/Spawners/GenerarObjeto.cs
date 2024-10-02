@@ -10,7 +10,7 @@ public class GeneradorObjeto : MonoBehaviour
     [Range(0.5f, 5f)]
     private float tiempoEspera;
 
-    void Start()
+    void Start1()
     {
         Invoke("GenerarObjeto", tiempoEspera);
     }

@@ -7,11 +7,11 @@ public class GeneradorObjetoLoop : MonoBehaviour
     [SerializeField] private GameObject objetoPrefab;
 
     [SerializeField]
-    [Range(0.5f, 5f)]
+    [Range(0.5f, 20f)]
     private float tiempoEspera;
 
     [SerializeField]
-    [Range(0.5f, 5f)]
+    [Range(0.5f, 20f)]
     private float tiempoIntervalo;
 
     void Start()

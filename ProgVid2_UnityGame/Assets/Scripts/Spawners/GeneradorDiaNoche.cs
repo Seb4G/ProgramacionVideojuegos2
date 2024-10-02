@@ -1,56 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class GeneradorDiaNoche : MonoBehaviour
 {
     [SerializeField] private Camera camara;
-    [SerializeField] private Color nocheColor;
-    [SerializeField] private Light2D luz2D;
+    [SerializeField] private Color nuevoColor;
+    [SerializeField] private float segundos;
 
-
-    [SerializeField][Range(1, 128)] private int duracionDia;
-    [SerializeField][Range(1, 24)] private int dias;
-
-    private Color diaColor;
-
+    private float tiempoRestante;
 
     void Start()
     {
-        diaColor = camara.backgroundColor;
-        StartCoroutine(CambiarColor(duracionDia));
+        tiempoRestante = segundos;
     }
 
-    IEnumerator CambiarColor(float tiempo)
+    void Update()
     {
-        Color colorDestinoFondo = camara.backgroundColor == diaColor ? nocheColor : diaColor;
-        Color colorDestinoLuz = luz2D.color != Color.white ? Color.white : nocheColor;
-        float duracionCiclo = tiempo * 0.6f;
-        float duracionCambio = tiempo * 0.4f;
+        tiempoRestante -= Time.deltaTime;
 
-        for (int i = 0; i < dias; i++)
+        if (tiempoRestante <= 0)
         {
-            yield return new WaitForSeconds(duracionCiclo);
-
-            float tiempoTranscurrido = 0;
-
-            while (tiempoTranscurrido < duracionCambio)
-            {
-                tiempoTranscurrido += Time.deltaTime;
-                float t = tiempoTranscurrido / duracionCambio;
-
-                float smoothT = Mathf.SmoothStep(0f, 1f, t);
-
-                camara.backgroundColor = Color.Lerp(camara.backgroundColor, colorDestinoFondo, smoothT);
-                luz2D.color = Color.Lerp(luz2D.color, colorDestinoLuz, smoothT);
-
-                yield return null;
-            }
-
-            colorDestinoLuz = luz2D.color != Color.white ? Color.white : nocheColor;
-            colorDestinoFondo = camara.backgroundColor == diaColor ? nocheColor : diaColor;
-
+            camara.backgroundColor = nuevoColor;
+            enabled = false; // Desactiva el script para que no siga actualizando
         }
     }
 }

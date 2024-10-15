@@ -110,8 +110,6 @@ public class JefeFinal : MonoBehaviour
 
     private void ActualizarEstado()
     {
-        // Actualiza el estado actual según las probabilidades y condiciones que desees
-        // Puedes usar Random.Range para generar números aleatorios y decidir el siguiente estado
         estadoActual = Random.Range(0, 3);
     }
 }

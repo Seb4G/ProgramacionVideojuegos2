@@ -11,9 +11,12 @@ public class Curar : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Jugador jugador = other.GetComponent<Jugador>();
-            jugador.ModificarVida(puntos);
-            Debug.Log(" PUNTOS DE DAÑO REALIZADOS AL JUGADOR " + puntos);
+            PlayerController playerController = other.GetComponent<PlayerController>();
+            if (playerController != null) // Verifica que se encontró el componente
+            {
+                playerController.ModificarVida(puntos); // Llama a un nuevo método en PlayerController
+                Debug.Log("PUNTOS DE CURACIÓN REALIZADOS AL JUGADOR: " + puntos);
+            }
         }
     }
 }

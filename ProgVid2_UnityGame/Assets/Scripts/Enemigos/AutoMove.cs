@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int damage;
+    public float speed = 10f;
 
+    private void Update()
+    {
+        transform.Translate(Vector2.left * speed * Time.deltaTime);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IDamageable damageableObject = collision.GetComponent<IDamageable>();
-        if (damageableObject != null)
+        // Si el proyectil colisiona con el jefe, ignorar la colisión
+        if (collision.CompareTag("JefeFinal"))
         {
-            damageableObject.TakeDamage(damage);
-            Destroy(gameObject);
+            return;
         }
+        Destroy(gameObject);
     }
 }

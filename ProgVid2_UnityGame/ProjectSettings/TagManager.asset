@@ -8,14 +8,15 @@ TagManager:
   - BloqueDestructible
   - Puerta
   - Coleccionable
+  - JefeFinal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Jugador
   - Water
   - UI
-  - Plataformas
+  - 
   - Enemigos
   - Pisos
   - 
@@ -42,17 +43,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
-  - name: Fondo
-    uniqueID: 374554161
+  - name: Pisos
+    uniqueID: 3047869265
     locked: 0
   - name: HealSystem
     uniqueID: 599270153
-    locked: 0
-  - name: FondoFrente
-    uniqueID: 188617649
     locked: 0
   - name: Enemigo
     uniqueID: 2004213695
@@ -60,9 +55,6 @@ TagManager:
   - name: Jugador
     uniqueID: 1933689599
     locked: 0
-  - name: Plataformas
-    uniqueID: 288394527
-    locked: 0
-  - name: Pisos
-    uniqueID: 3047869265
+  - name: Default
+    uniqueID: 0
     locked: 0

@@ -72,11 +72,20 @@ public class ProgressionSystem : MonoBehaviour
             {
                 if (metaObject != null)
                 {
-                    metaObject.SetActive(true); // Desbloquear la meta
+                    metaObject.SetActive(true);
                     Debug.Log("¡Meta desbloqueada! Todos los coleccionables recolectados.");
                     isMetaUnlocked = true;
                 }
             }
+        }
+        if (collision.CompareTag("Meta"))
+        {
+            GameObject[] BloquesDestructibles = GameObject.FindGameObjectsWithTag("BloqueDestructible");
+            foreach (GameObject bloque in BloquesDestructibles)
+            {
+                Destroy(bloque);
+            }
+            Debug.Log("Bloques destructibles eliminados al tocar la meta!");
         }
     }
 }

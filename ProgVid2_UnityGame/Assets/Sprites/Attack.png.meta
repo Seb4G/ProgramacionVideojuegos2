@@ -117,7 +117,7 @@ TextureImporter:
         y: 0
         width: 63
         height: 63
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
         y: 0
         width: 67
         height: 63
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -155,11 +155,11 @@ TextureImporter:
       name: Attack_2
       rect:
         serializedVersion: 2
-        x: 284
-        y: 0
+        x: 282
+        y: 1
         width: 61
         height: 68
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -180,7 +180,7 @@ TextureImporter:
         y: 0
         width: 33
         height: 62
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -199,9 +199,9 @@ TextureImporter:
         serializedVersion: 2
         x: 462
         y: 40
-        width: 36
+        width: 35
         height: 29
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -222,7 +222,7 @@ TextureImporter:
         y: 0
         width: 37
         height: 62
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []

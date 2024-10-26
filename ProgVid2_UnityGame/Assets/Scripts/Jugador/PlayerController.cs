@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     private SpriteRenderer miSprite;
     private BoxCollider2D miCollider2D;
     private int saltarMask;
+    public float attackDamage = 10f;
 
     private bool isHurt = false;
     private bool isDead = false;
     public float invulnerabilityTime = 1f;
+    private bool isAttacking = false;
     private PlayerHealth playerHealth;
 
     private void Start()
@@ -43,7 +45,10 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             Saltar();
         }
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            Atacar();
+        }
         ActualizarAnimacion();
     }
     private void FixedUpdate()
@@ -78,16 +83,32 @@ public class PlayerController : MonoBehaviour, IDamageable
         return miCollider2D.IsTouchingLayers(saltarMask);
     }
 
+    private void Atacar()
+    {
+        if (isDead || isHurt || isAttacking) return;
+        isAttacking = true;
+
+        miAnimator.SetTrigger("Atacar"); // Activamos el trigger de la animación
+
+        Debug.Log("Ataque realizado con daño: " + attackDamage);
+    }
+
     private void ActualizarAnimacion()
     {
-        if (isDead)
-        {
-            return;
-        }
-
+        if (isDead) return;
         miAnimator.SetInteger("Velocidad", Mathf.Abs((int)rb2D.velocity.x));
         miAnimator.SetBool("Herido", isHurt);
         miAnimator.SetBool("EnAire", !EnContactoConPlataforma());
+
+        if (isAttacking)
+        {
+            miAnimator.SetTrigger("Atacar");
+            isAttacking = false;
+        }
+        else
+        {
+            miAnimator.ResetTrigger("Atacar");
+        }
     }
 
     public void HandleDeath()

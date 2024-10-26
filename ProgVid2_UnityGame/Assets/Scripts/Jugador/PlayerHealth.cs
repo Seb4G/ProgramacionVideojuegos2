@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     private int lives = 3;
 
     public UnityEvent<int> OnLivesChanged;
+    private bool isDead = false;
 
     public void LoseLife()
     {
@@ -15,7 +16,13 @@ public class PlayerHealth : MonoBehaviour
 
         if (lives <= 0)
         {
-            // Aquí puedes manejar la situación de Game Over
+            Debug.Log("Game Over");
+            isDead = true;
         }
+    }
+
+    public bool IsPlayerDead()
+    {
+        return isDead;
     }
 }

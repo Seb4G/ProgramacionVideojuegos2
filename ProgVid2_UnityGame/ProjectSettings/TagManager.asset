@@ -9,6 +9,7 @@ TagManager:
   - Puerta
   - Coleccionable
   - JefeFinal
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,6 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Si el proyectil colisiona con el jefe, ignorar la colisión
         if (collision.CompareTag("JefeFinal"))
         {
             return;

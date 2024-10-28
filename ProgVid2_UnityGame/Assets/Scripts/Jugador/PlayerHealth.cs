@@ -4,13 +4,20 @@ using UnityEngine.Events;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
-    private int lives = 3;
+    public int lives = 5;
 
     public UnityEvent<int> OnLivesChanged;
     private bool isDead = false;
 
+    private void Start()
+    {
+        OnLivesChanged.Invoke(lives);
+    }
+
     public void LoseLife()
     {
+        if (lives <= 0 || isDead) return;
+
         lives--;
         OnLivesChanged.Invoke(lives);
 

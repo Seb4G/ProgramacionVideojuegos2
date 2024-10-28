@@ -14,7 +14,6 @@ public class JefeFinal : MonoBehaviour
     private float tiempoActualEspera;
     private int estadoActual;
 
-    // Estados del jefe
     private const int DispararProyectil = 0;
     private const int Embestir = 1;
     private const int Mover = 2;
@@ -63,18 +62,16 @@ public class JefeFinal : MonoBehaviour
     {
         float tiempoEmbestida = 2f;
         float tiempoInicio = Time.time;
-        float velocidadEmbestida = -10f; // Ajusta la velocidad de la embestida según tus necesidades
+        float velocidadEmbestida = -10f;
 
         Vector2 posicionInicial = transform.position;
         Vector2 posicionObjetivo = new Vector2(transform.position.x + velocidadEmbestida, transform.position.y);
 
-        // Mover hacia adelante
         while (Time.time < tiempoInicio + tiempoEmbestida / 2)
         {
             transform.position = Vector2.Lerp(posicionInicial, posicionObjetivo, (Time.time - tiempoInicio) / (tiempoEmbestida / 2));
             yield return null;
         }
-        // Mover hacia atrás (retroceso)
         tiempoInicio = Time.time;
         while (Time.time < tiempoInicio + tiempoEmbestida / 2)
         {
@@ -85,21 +82,19 @@ public class JefeFinal : MonoBehaviour
 
     private IEnumerator Movimiento()
     {
-        float tiempoMovimiento = 3f; // Ajusta la duración del movimiento según tus necesidades
+        float tiempoMovimiento = 3f;
         float tiempoInicio = Time.time;
         float velocidadMovimiento = 6f;
 
         Vector2 posicionInicial = transform.position;
         Vector2 posicionObjetivo = new Vector2(transform.position.x, transform.position.y + velocidadMovimiento);
 
-        // Mover hacia la posición objetivo
         while (Time.time < tiempoInicio + tiempoMovimiento / 2)
         {
             transform.position = Vector2.Lerp(posicionInicial, posicionObjetivo, (Time.time - tiempoInicio) / (tiempoMovimiento / 2));
             yield return null;
         }
 
-        // Mover hacia la posición inicial
         tiempoInicio = Time.time;
         while (Time.time < tiempoInicio + tiempoMovimiento / 2)
         {

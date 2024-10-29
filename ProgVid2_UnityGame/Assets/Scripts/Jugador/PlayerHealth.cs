@@ -5,9 +5,9 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
     public int lives = 5;
-
     public UnityEvent<int> OnLivesChanged;
     private bool isDead = false;
+    public int Lives => lives;
 
     private void Start()
     {
@@ -25,6 +25,14 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log("Game Over");
             isDead = true;
+        }
+    }
+    public void GainLife()
+    {
+        if (lives < 5)
+        {
+            lives++;
+            OnLivesChanged.Invoke(lives);
         }
     }
 

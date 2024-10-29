@@ -5,19 +5,23 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
+    [SerializeField] private int attackDamage = 5;
+    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private LayerMask enemyLayer;
+
     public PlayerData playerData;
     private Rigidbody2D rb2D;
     private Animator miAnimator;
     private SpriteRenderer miSprite;
     private BoxCollider2D miCollider2D;
     private int saltarMask;
-    public float attackDamage = 10f;
 
     private bool isHurt = false;
     private bool isDead = false;
-    public float invulnerabilityTime = 1f;
     private bool isAttacking = false;
+    public float invulnerabilityTime = 1f;
     private PlayerHealth playerHealth;
+    private HUDController hudController;
 
     private void Start()
     {
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         playerData.health = 5;
         saltarMask = LayerMask.GetMask("Pisos", "Plataformas");
         playerHealth = GetComponent<PlayerHealth>();
+        hudController = FindObjectOfType<HUDController>();
     }
 
     private void Update()
@@ -85,14 +90,43 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Atacar()
     {
-        if (isDead || isHurt || isAttacking) return;
+        if (isAttacking) return;
+
         isAttacking = true;
+        miAnimator.SetTrigger("Atacar");
 
-        miAnimator.SetTrigger("Atacar"); // Activamos el trigger de la animación
+        // Detectar enemigos en el rango de ataque
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
+        Debug.Log("Intentando atacar a enemigos. Cantidad detectada: " + hitEnemies.Length); // Agregar este Debug
 
-        Debug.Log("Ataque realizado con daño: " + attackDamage);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            EnemyController enemyController = enemy.GetComponent<EnemyController>();
+            if (enemyController != null)
+            {
+                Debug.Log("Atacando al enemigo: " + enemy.name); // Agregar este Debug
+                enemyController.TakeDamage(attackDamage); // Llamar a TakeDamage en el EnemyController
+            }
+            else
+            {
+                Debug.Log("No se encontró EnemyController en el enemigo: " + enemy.name); // Agregar este Debug
+            }
+        }
+
+        StartCoroutine(ResetAttackRoutine());
     }
 
+    private IEnumerator ResetAttackRoutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        isAttacking = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
     private void ActualizarAnimacion()
     {
         if (isDead) return;
@@ -143,20 +177,27 @@ public class PlayerController : MonoBehaviour, IDamageable
             GameEvents.TriggerVictory();
         }
     }
-
+    public void AgregarVida()
+    {
+        if (playerHealth.Lives < 5)
+        {
+            playerHealth.GainLife();
+            hudController.UpdateLives(playerHealth.Lives);
+        }
+    }
     public void ModificarVida(float puntos)
     {
-        if (isDead) return;
-        playerData.health += (int)puntos;
-        Debug.Log("Vida actual: " + playerData.health);
+        if (playerData.health < 5)
+        {
+            playerData.health += (int)puntos;
+            hudController.UpdateLives(playerData.health);
+        }
     }
-
     public void TakeDamage(int damage)
     {
         if (isDead) return;
 
         playerData.health -= damage;
-        Debug.Log("Vida actual: " + playerData.health);
 
         if (playerData.health > 0)
         {

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5992254454804389508}
   - component: {fileID: 3677393530223318231}
   - component: {fileID: 713637306344131807}
-  - component: {fileID: 2966404422569644421}
   - component: {fileID: 4068980413648577221}
+  - component: {fileID: 2027312434089163400}
   m_Layer: 7
   m_Name: Enemigo
   m_TagString: Enemy
@@ -175,19 +175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 5
   jugador: {fileID: 0}
---- !u!114 &2966404422569644421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7032033240589230752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bde3356595d4514299e9aee9b76d2b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puntos: 5
 --- !u!95 &4068980413648577221
 Animator:
   serializedVersion: 5
@@ -209,3 +196,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2027312434089163400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032033240589230752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6bb9aa50ad6744fb82d72e63422308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  animator: {fileID: 4068980413648577221}
+  damageToPlayer: 1

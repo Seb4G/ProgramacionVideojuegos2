@@ -14,7 +14,8 @@ public class Curar : MonoBehaviour
             PlayerController playerController = other.GetComponent<PlayerController>();
             if (playerController != null)
             {
-                playerController.ModificarVida(puntos);
+                playerController.ModificarVida(puntos); // Aumenta la salud (hasta el máximo de 5)
+                playerController.AgregarVida(); // Agrega un corazón adicional (hasta un máximo de 5)
             }
         }
     }

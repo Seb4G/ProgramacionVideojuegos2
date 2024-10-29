@@ -19,7 +19,6 @@ public class ProgressionSystem : MonoBehaviour
         {
             metaObject.SetActive(false);
         }
-
         tasks.Push("Task 3: Derrotar al jefe");
         tasks.Push("Task 2: Encontrar la llave");
         tasks.Push("Task 1: Activar el interruptor");
@@ -29,11 +28,7 @@ public class ProgressionSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (tasks.Count > 0)
-            {
-                Debug.Log("Completado: " + tasks.Pop());
-            }
-            else if (!isMetaUnlocked)
+            if (!isMetaUnlocked)
             {
                 if (metaObject != null)
                 {
@@ -42,21 +37,15 @@ public class ProgressionSystem : MonoBehaviour
                     isMetaUnlocked = true;
                 }
             }
-            else
-            {
-                Debug.Log("¡Todas las tareas completadas!");
-            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("OnTriggerEnter2D detectado con: " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Coleccionable"))
         {
             tasks.Push("Recolectado: " + collision.gameObject.name);
             coleccionablesRecolectados++;
-            Debug.Log("Recolectado: " + collision.gameObject.name);
 
             Destroy(collision.gameObject);
 
@@ -65,7 +54,6 @@ public class ProgressionSystem : MonoBehaviour
                 if (metaObject != null)
                 {
                     metaObject.SetActive(true);
-                    Debug.Log("¡Meta desbloqueada! Todos los coleccionables recolectados.");
                     isMetaUnlocked = true;
                 }
             }
@@ -77,7 +65,6 @@ public class ProgressionSystem : MonoBehaviour
             {
                 Destroy(bloque);
             }
-            Debug.Log("Bloques destructibles eliminados al tocar la meta!");
         }
     }
 }

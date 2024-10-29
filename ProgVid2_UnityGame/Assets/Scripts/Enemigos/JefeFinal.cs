@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JefeFinal : MonoBehaviour
+public class JefeFinal : MonoBehaviour, IDamageable
 {
+    [Header("Configuración")]
+    [SerializeField] private int maxHealth = 10;
+    [SerializeField] private Animator animator;
     [SerializeField] float tiempoEntreDisparos;
     [SerializeField] float tiempoEntreEmbestidas;
     [SerializeField] float tiempoEntreMovimientos;
@@ -22,6 +25,7 @@ public class JefeFinal : MonoBehaviour
     {
         estadoActual = DispararProyectil;
         StartCoroutine(ComportamientoJefe());
+        currentHealth = maxHealth;
     }
 
     private IEnumerator ComportamientoJefe()
@@ -106,4 +110,20 @@ public class JefeFinal : MonoBehaviour
     {
         estadoActual = Random.Range(0, 3);
     }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        animator.SetTrigger("Death");
+        Destroy(gameObject, 5.0f);
+    }
+}
 }

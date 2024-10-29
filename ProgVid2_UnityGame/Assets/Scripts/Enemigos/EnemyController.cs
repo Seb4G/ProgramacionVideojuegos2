@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void Die()
     {
         animator.SetTrigger("Death");
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 5.0f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

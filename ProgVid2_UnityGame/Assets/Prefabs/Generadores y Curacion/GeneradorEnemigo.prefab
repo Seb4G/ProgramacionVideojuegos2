@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 6050101241822226587}
   - component: {fileID: 1587777970791009150}
-  - component: {fileID: 765593697853455569}
+  - component: {fileID: -866837908769587185}
+  - component: {fileID: -2056530857682118272}
   m_Layer: 0
   m_Name: GeneradorEnemigo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6050101241822226587
 Transform:
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &765593697853455569
+--- !u!114 &-866837908769587185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,9 +95,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 817983791451244526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afde3dcb87996e346a1d193cebe54bfd, type: 3}
+  m_Script: {fileID: 11500000, guid: feebaad79a26fee438cd989a1f07fc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objetoPrefab: {fileID: 3353782978993074801, guid: 98a09707979df8747b1fbe471486aa0c, type: 3}
-  tiempoEspera: 5
-  tiempoIntervalo: 5.1
+  pooledObject: {fileID: 405658082897406632, guid: 63c2a7269b85f274fa24ba5b910d8e90, type: 3}
+  poolSize: 3
+--- !u!114 &-2056530857682118272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817983791451244526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23603c83e40a8014eb64dcf5c7f8cd15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempoEspera: 2
+  tiempoIntervalo: 2

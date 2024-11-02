@@ -95,21 +95,18 @@ public class PlayerController : MonoBehaviour, IDamageable
         isAttacking = true;
         miAnimator.SetTrigger("Atacar");
 
-        // Detectar enemigos en el rango de ataque
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
-        Debug.Log("Intentando atacar a enemigos. Cantidad detectada: " + hitEnemies.Length); // Agregar este Debug
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            if (enemyController != null)
+            IDamageable damageable = enemy.GetComponent<IDamageable>();
+            if (damageable != null)
             {
-                Debug.Log("Atacando al enemigo: " + enemy.name); // Agregar este Debug
-                enemyController.TakeDamage(attackDamage); // Llamar a TakeDamage en el EnemyController
+                damageable.TakeDamage(attackDamage);
             }
             else
             {
-                Debug.Log("No se encontró EnemyController en el enemigo: " + enemy.name); // Agregar este Debug
+                Debug.Log("No se encontró IDamageable en el enemigo: " + enemy.name);
             }
         }
 

@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 713637306344131807}
   - component: {fileID: 4068980413648577221}
   - component: {fileID: 2027312434089163400}
+  - component: {fileID: -2139487819872888723}
+  - component: {fileID: 5665305025661170146}
   m_Layer: 7
   m_Name: Enemigo
   m_TagString: Enemy
@@ -209,5 +211,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  animator: {fileID: 4068980413648577221}
+--- !u!114 &-2139487819872888723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032033240589230752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe48291300a7846b388c207166e350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   damageToPlayer: 1
+--- !u!114 &5665305025661170146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032033240589230752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ea55841a3f71c4d8d7c92d0ed7fafd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4068980413648577221}

@@ -68,7 +68,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemigo detecta colison
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5665305025661170146, guid: 441cf8af199fab947a20a48dd1505159, type: 3}
+    - {fileID: 2027312434089163400, guid: 441cf8af199fab947a20a48dd1505159, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

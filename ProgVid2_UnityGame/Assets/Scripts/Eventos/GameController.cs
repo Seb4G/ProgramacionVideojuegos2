@@ -30,7 +30,11 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (victoryMenu.activeSelf)
+            {
+                Application.Quit();
+            }
+            else if (isPaused)
             {
                 GameEvents.TriggerResume();
             }
@@ -87,5 +91,24 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void ResumeGame()
+    {
+        GameEvents.TriggerResume();
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+    UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         if (lives <= 0)
         {
             GameEvents.TriggerGameOver();
+            ShowGameOverMenu();
         }
     }
 

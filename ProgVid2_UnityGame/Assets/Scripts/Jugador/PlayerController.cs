@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private int attackDamage = 5;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
+    public GameManager gameManager;
 
     public PlayerData playerData;
     private Rigidbody2D rb2D;
@@ -200,6 +201,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             StartCoroutine(HurtRoutine());
         }
+        gameManager.LoseLife();
     }
 
     private IEnumerator HurtRoutine()

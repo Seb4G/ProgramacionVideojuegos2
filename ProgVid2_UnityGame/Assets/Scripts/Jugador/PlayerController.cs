@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] private int attackDamage = 5;
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask enemyLayer; 
+    [SerializeField] private AudioClip deathAudioClip;
+    private AudioSource audioSource;
     public GameManager gameManager;
 
     public PlayerData playerData;
@@ -34,6 +36,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         saltarMask = LayerMask.GetMask("Pisos", "Plataformas");
         playerHealth = GetComponent<PlayerHealth>();
         hudController = FindObjectOfType<HUDController>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void Update()
@@ -151,6 +158,10 @@ public class PlayerController : MonoBehaviour, IDamageable
         rb2D.isKinematic = true;
         miCollider2D.enabled = false;
         miAnimator.SetTrigger("Muerto");
+        if (deathAudioClip != null)
+        {
+            audioSource.PlayOneShot(deathAudioClip);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

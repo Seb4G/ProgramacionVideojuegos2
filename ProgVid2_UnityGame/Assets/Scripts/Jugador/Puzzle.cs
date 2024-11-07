@@ -10,9 +10,18 @@ public class ProgressionSystem : MonoBehaviour
     private int coleccionablesRecolectados = 0;
     public int totalColeccionables = 4;
 
+    [SerializeField] private AudioClip recoleccionAudioClip;
+    private AudioSource audioSource;
+
     void Start()
     {
         tasks = new Stack<string>();
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
 
         metaObject = GameObject.FindGameObjectWithTag("Meta");
         if (metaObject != null)
@@ -24,28 +33,17 @@ public class ProgressionSystem : MonoBehaviour
         tasks.Push("Task 1: Activar el interruptor");
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (!isMetaUnlocked)
-            {
-                if (metaObject != null)
-                {
-                    metaObject.SetActive(true);
-                    Debug.Log("¡Meta desbloqueada!");
-                    isMetaUnlocked = true;
-                }
-            }
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Coleccionable"))
         {
             tasks.Push("Recolectado: " + collision.gameObject.name);
             coleccionablesRecolectados++;
+
+            if (recoleccionAudioClip != null)
+            {
+                audioSource.PlayOneShot(recoleccionAudioClip);
+            }
 
             Destroy(collision.gameObject);
 

@@ -21,7 +21,7 @@ TagManager:
   - Enemigos
   - Pisos
   - 
-  - 
+  - Fondo
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fondo
+    uniqueID: 2602480045
+    locked: 0
   - name: Pisos
     uniqueID: 3047869265
     locked: 0

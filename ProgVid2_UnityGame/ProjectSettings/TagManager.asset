@@ -22,7 +22,7 @@ TagManager:
   - Pisos
   - 
   - Fondo
-  - 
+  - FondoFrente
   - 
   - 
   - 
@@ -47,18 +47,21 @@ TagManager:
   - name: Fondo
     uniqueID: 2602480045
     locked: 0
+  - name: FondoFrente
+    uniqueID: 3674802535
+    locked: 0
   - name: Pisos
     uniqueID: 3047869265
     locked: 0
   - name: HealSystem
     uniqueID: 599270153
     locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Enemigo
     uniqueID: 2004213695
     locked: 0
   - name: Jugador
     uniqueID: 1933689599
-    locked: 0
-  - name: Default
-    uniqueID: 0
     locked: 0

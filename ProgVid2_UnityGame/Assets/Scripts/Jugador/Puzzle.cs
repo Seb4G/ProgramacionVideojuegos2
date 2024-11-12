@@ -12,6 +12,7 @@ public class ProgressionSystem : MonoBehaviour
 
     [SerializeField] private AudioClip recoleccionAudioClip;
     private AudioSource audioSource;
+    public GameObject sparkEffectPrefab;
 
     void Start()
     {
@@ -44,7 +45,10 @@ public class ProgressionSystem : MonoBehaviour
             {
                 audioSource.PlayOneShot(recoleccionAudioClip);
             }
-
+            if (sparkEffectPrefab != null)
+            {
+                Instantiate(sparkEffectPrefab, collision.transform.position, Quaternion.identity);
+            }
             Destroy(collision.gameObject);
 
             if (coleccionablesRecolectados >= totalColeccionables && !isMetaUnlocked)

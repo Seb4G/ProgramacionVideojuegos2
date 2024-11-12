@@ -17,16 +17,20 @@ public class JefeFinal : MonoBehaviour
     private const int DispararProyectil = 0;
     private const int Embestir = 1;
     private const int Mover = 2;
+    private EnemyHealth enemyHealth;
+    private EnemyDeath enemyDeath;
 
     void Start()
     {
         estadoActual = DispararProyectil;
+        enemyHealth = GetComponent<EnemyHealth>();
+        enemyDeath = GetComponent<EnemyDeath>();
         StartCoroutine(ComportamientoJefe());
     }
 
     private IEnumerator ComportamientoJefe()
     {
-        while (true)
+        while (enemyHealth != null && enemyHealth.currentHealth > 0)
         {
             switch (estadoActual)
             {

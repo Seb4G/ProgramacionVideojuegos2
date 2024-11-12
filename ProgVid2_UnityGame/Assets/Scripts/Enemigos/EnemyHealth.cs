@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxHealth = 5;
-    private int currentHealth;
 
+    public int currentHealth;
     private void Start()
     {
         currentHealth = maxHealth;

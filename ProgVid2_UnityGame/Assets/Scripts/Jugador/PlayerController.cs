@@ -112,10 +112,6 @@ public class PlayerController : MonoBehaviour, IDamageable
             {
                 damageable.TakeDamage(attackDamage);
             }
-            else
-            {
-                Debug.Log("No se encontró IDamageable en el enemigo: " + enemy.name);
-            }
         }
 
         StartCoroutine(ResetAttackRoutine());
@@ -180,10 +176,6 @@ public class PlayerController : MonoBehaviour, IDamageable
                     StartCoroutine(HurtRoutine());
                 }
             }
-        }
-        else if (collision.gameObject.CompareTag("JefeFinal"))
-        {
-            GameEvents.TriggerVictory();
         }
     }
     public void AgregarVida()

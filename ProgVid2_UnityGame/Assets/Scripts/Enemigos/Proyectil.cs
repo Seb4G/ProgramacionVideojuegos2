@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 10f;
-    [SerializeField] private float puntos = 5f;
+    [SerializeField] private float damageToPlayer = 5f;
 
     private void Update()
     {
@@ -18,11 +18,14 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-        if (playerController != null)
-        {
-            playerController.ModificarVida(-puntos);
-        }
-        gameObject.SetActive(false);
+        if (collision.gameObject.CompareTag("Player"))
+           {
+           IDamageable player = collision.gameObject.GetComponent<IDamageable>();
+              if (player != null)
+                {
+                    player.TakeDamage((int)damageToPlayer);
+                }
+            }
+        Destroy(gameObject);
     }
 }

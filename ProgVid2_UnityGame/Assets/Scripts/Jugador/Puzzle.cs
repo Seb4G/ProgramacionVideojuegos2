@@ -58,6 +58,11 @@ public class ProgressionSystem : MonoBehaviour
                     metaObject.SetActive(true);
                     isMetaUnlocked = true;
                 }
+                GameObject[] cofres = GameObject.FindGameObjectsWithTag("Cofre");
+                foreach (GameObject cofre in cofres)
+                {
+                    Destroy(cofre);
+                }
             }
         }
         if (collision.CompareTag("Meta"))

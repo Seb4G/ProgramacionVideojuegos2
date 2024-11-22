@@ -52,5 +52,6 @@ public class BossHealth : MonoBehaviour, IDamageable
 
         Debug.Log("Animación de muerte completada. Desactivando el objeto.");
         gameObject.SetActive(false);
+        GameEvents.TriggerVictory();
     }
 }

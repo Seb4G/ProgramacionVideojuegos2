@@ -75,14 +75,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7744321479988382071, guid: 6a46e6f103628ac45af29a0a8ec48378, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1005125860140569888}
+      addedObject: {fileID: -2854468939300501228}
   m_SourcePrefab: {fileID: 100100000, guid: 6a46e6f103628ac45af29a0a8ec48378, type: 3}
 --- !u!1 &405658082897406632 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7744321479988382071, guid: 6a46e6f103628ac45af29a0a8ec48378, type: 3}
   m_PrefabInstance: {fileID: 7987262282738377695}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1005125860140569888
+--- !u!114 &-2854468939300501228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +91,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 405658082897406632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a156a21619ef49408524298b6a33711, type: 3}
+  m_Script: {fileID: 11500000, guid: e015c4ba14a702844b952de5ef84de08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageToPlayer: 1
   speed: 10
+  direccionMovimiento: {x: 0, y: -1}

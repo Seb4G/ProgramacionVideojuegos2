@@ -123,15 +123,23 @@ public class PlayerController : MonoBehaviour, IDamageable
         isAttacking = false;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, 2f);
     }
     private void ActualizarAnimacion()
     {
         if (isDead) return;
-        miAnimator.SetInteger("Velocidad", Mathf.Abs((int)rb2D.velocity.x));
+
+        float velocidadHorizontal = rb2D.velocity.x;
+
+        float velocidadSuavizada = Mathf.Lerp(0, Mathf.Sign(velocidadHorizontal), Mathf.Abs(velocidadHorizontal));
+
+        int velocidadRedondeada = Mathf.RoundToInt(velocidadSuavizada);
+
+        miAnimator.SetInteger("Velocidad", Mathf.Abs(velocidadRedondeada));
+
         miAnimator.SetBool("Herido", isHurt);
         miAnimator.SetBool("EnAire", !EnContactoConPlataforma());
 

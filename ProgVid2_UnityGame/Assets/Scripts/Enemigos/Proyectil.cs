@@ -4,28 +4,36 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Header("Configuración del Proyectil")]
+    public float damageToPlayer = 1.0f;
     public float speed = 10f;
-    [SerializeField] private float damageToPlayer = 5f;
+    [SerializeField] private Vector2 direccionMovimiento = Vector2.left;
 
     private void Update()
     {
-        transform.Translate(Vector2.left * speed * Time.deltaTime);
+        transform.Translate(direccionMovimiento.normalized * speed * Time.deltaTime);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("JefeFinal"))
+        if (collision.CompareTag("Enemy"))
         {
             return;
         }
-
-        if (collision.gameObject.CompareTag("Player"))
-           {
-           IDamageable player = collision.gameObject.GetComponent<IDamageable>();
-              if (player != null)
+        if (collision.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+            PlayerController playerController = collision.GetComponent<PlayerController>();
+            if (playerHealth != null)
+            {
+                playerHealth.LoseLife();
+                playerController.TakeDamage((int)damageToPlayer);
+                if (playerHealth.IsPlayerDead())
                 {
-                    player.TakeDamage((int)damageToPlayer);
+                    GameEvents.TriggerGameOver();
                 }
             }
-        Destroy(gameObject);
+        }
+        gameObject.SetActive(false);
     }
 }

@@ -12,7 +12,7 @@ public class ProyectilEjeY : MonoBehaviour
         transform.Translate(Vector2.down * speed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -22,9 +22,6 @@ public class ProyectilEjeY : MonoBehaviour
                 player.TakeDamage((int)damageToPlayer);
             }
         }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
         gameObject.SetActive(false);
     }
 }

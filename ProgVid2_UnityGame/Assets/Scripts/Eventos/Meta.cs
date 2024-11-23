@@ -8,12 +8,16 @@ public class Meta : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GameObject[] bloquesDestructibles = GameObject.FindGameObjectsWithTag("BloquesDestructibles");
+            GameObject[] bloquesDestructibles = GameObject.FindGameObjectsWithTag("BloqueDestructible");
             foreach (GameObject bloque in bloquesDestructibles)
             {
                 Destroy(bloque);
             }
-            Debug.Log("Bloques destructibles eliminados!");
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            if (gameManager != null)
+            {
+                gameManager.ShowTextoJefe();
+            }
         }
     }
 }

@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer; 
     [SerializeField] private AudioClip deathAudioClip;
+    [SerializeField] private AudioClip attackAudioClip;
+    [SerializeField] private AudioClip jumpAudioClip;
+    [SerializeField] private AudioClip damageAudioClip;
     private AudioSource audioSource;
     public GameManager gameManager;
 
@@ -89,6 +92,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (isHurt || isDead) return;
         rb2D.AddForce(Vector2.up * playerData.jumpHeight, ForceMode2D.Impulse);
+        if (jumpAudioClip != null)
+        {
+            audioSource.PlayOneShot(jumpAudioClip);
+        }
     }
 
     private bool EnContactoConPlataforma()
@@ -102,7 +109,10 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         isAttacking = true;
         miAnimator.SetTrigger("Atacar");
-
+        if (attackAudioClip != null)
+        {
+            audioSource.PlayOneShot(attackAudioClip);
+        }
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)
@@ -207,7 +217,10 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (isDead) return;
 
         playerData.health -= damage;
-
+        if (damageAudioClip != null)
+        {
+            audioSource.PlayOneShot(damageAudioClip);
+        }
         if (playerData.health > 0)
         {
             StartCoroutine(HurtRoutine());

@@ -7,13 +7,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private GameObject victoryMenu;
     [SerializeField] private GameObject TextoHerramientas;
-    [SerializeField] private GameObject TextoControles;
+    [SerializeField] private GameObject menuControles;
     [SerializeField] private GameObject TextoTornillo;
     [SerializeField] private GameObject TextoJefe;
 
     private bool isPaused = false;
-    private bool isTextoControlesActive = false;
-    private bool canShowTextoControles = false;
+    private bool isMenuControlesActive = false;
+    private bool canShowMenuControles = false;
 
     private void OnEnable()
     {
@@ -44,7 +44,11 @@ public class GameManager : MonoBehaviour
         {
             TextoJefe.SetActive(false);
         }
-        Invoke(nameof(EnableTextoControles), 9f);
+        if (menuControles != null)
+        {
+            menuControles.SetActive(false);
+        }
+        Invoke(nameof(EnableMenuControles), 9f);
     }
     private void Update()
     {
@@ -63,14 +67,10 @@ public class GameManager : MonoBehaviour
                 GameEvents.TriggerPause();
             }
         }
-        if (Input.GetKeyDown(KeyCode.H) && canShowTextoControles && !AnyOtherMenuActive())
+        if (Input.GetKeyDown(KeyCode.H) && canShowMenuControles)
         {
-            ToggleTextoControles();
+            ToggleMenuControles();
         }
-    }
-    private void EnableTextoControles()
-    {
-        canShowTextoControles = true;
     }
 
     private void Pause()
@@ -153,11 +153,28 @@ public class GameManager : MonoBehaviour
     {
         TextoHerramientas.SetActive(false);
     }
-    private void ToggleTextoControles()
+    private void EnableMenuControles()
     {
-        if (AnyOtherMenuActive()) return;
-        isTextoControlesActive = !isTextoControlesActive;
-        TextoControles.SetActive(isTextoControlesActive);
+        canShowMenuControles = true;
+    }
+
+    private void ToggleMenuControles()
+    {
+        if (pauseMenu.activeSelf || AnyOtherMenuActive() && !isMenuControlesActive) return;
+        isMenuControlesActive = !isMenuControlesActive;
+
+        if (isMenuControlesActive)
+        {
+            Time.timeScale = 0;
+            menuControles.SetActive(true);
+            isPaused = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            menuControles.SetActive(false);
+            isPaused = false;
+        }
     }
     private void RestartScene()
     {
@@ -192,6 +209,7 @@ public class GameManager : MonoBehaviour
     private bool AnyOtherMenuActive()
     {
         return gameOverMenu.activeSelf || victoryMenu.activeSelf ||
-               TextoHerramientas.activeSelf || TextoTornillo.activeSelf || TextoJefe.activeSelf;
+               TextoHerramientas.activeSelf || TextoTornillo.activeSelf ||
+               TextoJefe.activeSelf || menuControles.activeSelf;
     }
 }

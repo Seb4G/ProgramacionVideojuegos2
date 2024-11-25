@@ -6,7 +6,9 @@ using UnityEngine.Events;
 public class PlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] private int attackDamage = 5;
-    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private float attackCooldown = 1.5f;
+    [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] public ObjectPooler objectPooler;
     [SerializeField] private LayerMask enemyLayer; 
     [SerializeField] private AudioClip deathAudioClip;
     [SerializeField] private AudioClip attackAudioClip;
@@ -14,7 +16,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private AudioClip damageAudioClip;
     private AudioSource audioSource;
     public GameManager gameManager;
-
     public PlayerData playerData;
     private Rigidbody2D rb2D;
     private Animator miAnimator;
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour, IDamageable
         miAnimator = GetComponent<Animator>();
         miSprite = GetComponent<SpriteRenderer>();
         miCollider2D = GetComponent<BoxCollider2D>();
-        playerData.health = 5;
         saltarMask = LayerMask.GetMask("Pisos", "Plataformas");
         playerHealth = GetComponent<PlayerHealth>();
         hudController = FindObjectOfType<HUDController>();
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
         if (Input.GetMouseButtonDown(0))
         {
-            Atacar();
+            LanzarProyectil();
         }
         ActualizarAnimacion();
     }
@@ -80,12 +80,24 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (isHurt || isDead) return;
 
         float moverHorizontal = Input.GetAxis("Horizontal");
-        rb2D.AddForce(new Vector2(moverHorizontal * playerData.speed, 0f));
 
         if (moverHorizontal != 0)
         {
+            float fuerzaHorizontal = moverHorizontal * playerData.speed;
+            rb2D.AddForce(new Vector2(fuerzaHorizontal, 0f));
             miSprite.flipX = moverHorizontal < 0;
         }
+        else
+        {
+            Vector2 velocidadActual = rb2D.velocity;
+            velocidadActual.x *= 0.9f;
+            rb2D.velocity = velocidadActual;
+        }
+        float velocidadMaxima = 20f;
+        rb2D.velocity = new Vector2(
+            Mathf.Clamp(rb2D.velocity.x, -velocidadMaxima, velocidadMaxima),
+            rb2D.velocity.y
+        );
     }
 
     private void Saltar()
@@ -102,34 +114,42 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         return miCollider2D.IsTouchingLayers(saltarMask);
     }
-
-    private void Atacar()
+    private void LanzarProyectil()
     {
         if (isAttacking) return;
 
-        isAttacking = true;
-        miAnimator.SetTrigger("Atacar");
-        if (attackAudioClip != null)
+        if (objectPooler == null)
         {
-            audioSource.PlayOneShot(attackAudioClip);
+            return;
         }
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
 
-        foreach (Collider2D enemy in hitEnemies)
+        Vector2 direccionProyectil = miSprite.flipX ? Vector2.left : Vector2.right;
+
+        GameObject proyectil = objectPooler.GetPooledObject();
+        if (proyectil != null)
         {
-            IDamageable damageable = enemy.GetComponent<IDamageable>();
-            if (damageable != null)
+            proyectil.transform.position = projectileSpawnPoint.position;
+            proyectil.transform.rotation = projectileSpawnPoint.rotation;
+            proyectil.SetActive(true);
+
+            ProyectilJugador proyectilJugadorScript = proyectil.GetComponent<ProyectilJugador>();
+            if (proyectilJugadorScript != null)
             {
-                damageable.TakeDamage(attackDamage);
+                proyectilJugadorScript.ConfigureProjectile(direccionProyectil, attackDamage);
             }
+
+            if (attackAudioClip != null)
+            {
+                audioSource.PlayOneShot(attackAudioClip);
+            }
+
+            StartCoroutine(ResetAttackCooldown());
         }
-
-        StartCoroutine(ResetAttackRoutine());
     }
-
-    private IEnumerator ResetAttackRoutine()
+    private IEnumerator ResetAttackCooldown()
     {
-        yield return new WaitForSeconds(1.5f);
+        isAttacking = true;
+        yield return new WaitForSeconds(attackCooldown);
         isAttacking = false;
     }
 
@@ -196,20 +216,11 @@ public class PlayerController : MonoBehaviour, IDamageable
             }
         }
     }
-    public void AgregarVida()
-    {
-        if (playerHealth.Lives < 5)
-        {
-            playerHealth.GainLife();
-            hudController.UpdateLives(playerHealth.Lives);
-        }
-    }
     public void ModificarVida(float puntos)
     {
-        if (playerData.health < 5)
+        if (puntos > 0)
         {
-            playerData.health += (int)puntos;
-            hudController.UpdateLives(playerData.health);
+            playerHealth.GainLife();
         }
     }
     public void TakeDamage(int damage)
@@ -225,7 +236,6 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             StartCoroutine(HurtRoutine());
         }
-        gameManager.LoseLife();
     }
 
     private IEnumerator HurtRoutine()

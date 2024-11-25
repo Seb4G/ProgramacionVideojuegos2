@@ -3,14 +3,14 @@ using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField]
-    public int lives = 5;
-    public UnityEvent<int> OnLivesChanged;
-    private bool isDead = false;
-    public int Lives => lives;
+    [SerializeField] private int maxLives = 5;
+    public int lives { get; private set; }
+    public bool isDead => lives <= 0;
 
+    public UnityEvent<int> OnLivesChanged;
     private void Start()
     {
+        lives = maxLives;
         OnLivesChanged.Invoke(lives);
     }
 
@@ -23,13 +23,12 @@ public class PlayerHealth : MonoBehaviour
 
         if (lives <= 0)
         {
-            Debug.Log("Game Over");
-            isDead = true;
+            GameEvents.TriggerGameOver();
         }
     }
     public void GainLife()
     {
-        if (lives < 5)
+        if (lives < maxLives)
         {
             lives++;
             OnLivesChanged.Invoke(lives);

@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private int lives = 3;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private GameObject victoryMenu;
@@ -11,9 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject TextoControles;
     [SerializeField] private GameObject TextoTornillo;
     [SerializeField] private GameObject TextoJefe;
+
     private bool isPaused = false;
     private bool isTextoControlesActive = false;
     private bool canShowTextoControles = false;
+
     private void OnEnable()
     {
         GameEvents.OnGameOver += ShowGameOverMenu;
@@ -71,15 +72,6 @@ public class GameManager : MonoBehaviour
     {
         canShowTextoControles = true;
     }
-    public void LoseLife()
-    {
-        lives--;
-
-        if (lives <= 0)
-        {
-            GameEvents.TriggerGameOver();
-        }
-    }
 
     private void Pause()
     {
@@ -105,7 +97,20 @@ public class GameManager : MonoBehaviour
     private void ShowVictoryMenu()
     {
         victoryMenu.SetActive(true);
-        Invoke("LoadNextScene", 10f);
+
+        var playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.enabled = false;
+        }
+
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach (AudioSource audioSource in audioSources)
+        {
+            audioSource.Stop();
+        }
+
+        Invoke(nameof(QuitGame), 50f);
     }
 
     public void ShowTextoTornillo()

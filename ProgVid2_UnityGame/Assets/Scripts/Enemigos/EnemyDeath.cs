@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyDeath : MonoBehaviour
 {
+
+    public int points = 5;
     [SerializeField] private Animator animator;
 
     public void Die()
@@ -12,6 +14,6 @@ public class EnemyDeath : MonoBehaviour
         {
             animator.SetTrigger("Death");
         }
-        Destroy(gameObject, 3.0f);
+        Destroy(gameObject, 1.5f);
     }
 }

@@ -11,6 +11,7 @@ TagManager:
   - JefeFinal
   - Enemy
   - Cofre
+  - ProjectilePool
   layers:
   - Default
   - TransparentFX

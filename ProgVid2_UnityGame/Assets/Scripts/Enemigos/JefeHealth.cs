@@ -7,13 +7,23 @@ public class BossHealth : MonoBehaviour, IDamageable
     [SerializeField] public int points = 50;
     [SerializeField] private int health = 25;
     [SerializeField] private Animator animator;
-    private bool isDead = false;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip damageSound;
+    private AudioSource audioSource;
+
+    private bool isDead = false;
     private void Start()
     {
         if (animator == null)
         {
             animator = GetComponent<Animator>();
+        }
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.volume = 0.1f;
         }
     }
 
@@ -22,7 +32,10 @@ public class BossHealth : MonoBehaviour, IDamageable
         if (isDead) return;
 
         health -= damage;
-
+        if (damageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(damageSound);
+        }
         if (health <= 0)
         {
             Die();

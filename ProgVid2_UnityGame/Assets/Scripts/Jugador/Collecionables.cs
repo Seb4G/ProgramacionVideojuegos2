@@ -71,13 +71,5 @@ public class ProgressionSystem : MonoBehaviour
                 }
             }
         }
-        if (collision.CompareTag("Meta"))
-        {
-            GameObject[] BloquesDestructibles = GameObject.FindGameObjectsWithTag("BloqueDestructible");
-            foreach (GameObject bloque in BloquesDestructibles)
-            {
-                Destroy(bloque);
-            }
-        }
     }
 }

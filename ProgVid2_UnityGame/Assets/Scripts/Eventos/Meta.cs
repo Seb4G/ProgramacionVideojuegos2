@@ -18,6 +18,7 @@ public class Meta : MonoBehaviour
             {
                 gameManager.ShowTextoJefe();
             }
+            Destroy(collision.gameObject);
         }
     }
 }

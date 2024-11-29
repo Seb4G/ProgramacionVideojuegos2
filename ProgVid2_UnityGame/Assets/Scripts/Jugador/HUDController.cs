@@ -7,11 +7,14 @@ public class HUDController : MonoBehaviour
 {
     [SerializeField] private GameObject iconoVida;
     [SerializeField] private GameObject contenedorIconosVida;
-    [SerializeField] private TextMeshProUGUI textoPuntaje;
+    [SerializeField] public TextMeshProUGUI textoPuntaje;
 
     private List<GameObject> iconosVidas = new List<GameObject>();
     private PlayerHealth playerHealth;
     private int puntajeActual = 0;
+
+    private const string HighScoreKey = "HighScore";
+    private const string HighScoreNameKey = "HighScoreName";
 
     private void Start()
     {
@@ -21,6 +24,7 @@ public class HUDController : MonoBehaviour
             playerHealth.OnLivesChanged.AddListener(UpdateLives);
             UpdateLives(playerHealth.lives);
         }
+        PlayerPrefs.GetInt(HighScoreKey, 0);
         UpdateScore(0);
     }
 
@@ -41,6 +45,44 @@ public class HUDController : MonoBehaviour
     public void UpdateScore(int puntos)
     {
         puntajeActual += puntos;
-        textoPuntaje.text = $"Score: {puntajeActual}";
+        if (textoPuntaje != null)
+        {
+            textoPuntaje.text = $"Score: {puntajeActual}";
+        }
+        int highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
+        if (puntajeActual > highScore)
+        {
+            PlayerPrefs.SetInt(HighScoreKey, puntajeActual);
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            if (gameManager != null)
+            {
+                string playerName = gameManager.GetPlayerName();
+                PlayerPrefs.SetString(HighScoreNameKey, playerName);
+            }
+            PlayerPrefs.Save();
+        }
+    }
+    public void SavePlayerName(string playerName)
+    {
+        PlayerPrefs.SetString(HighScoreNameKey, playerName);
+        PlayerPrefs.Save();
+    }
+    public int GetCurrentScore()
+    {
+        return puntajeActual;
+    }
+
+    public int GetHighScore()
+    {
+        return PlayerPrefs.GetInt(HighScoreKey, 0);
+    }
+    public string GetHighScoreName()
+    {
+        return PlayerPrefs.GetString(HighScoreNameKey, "No Name");
+    }
+    public void ShowHighScore()
+    {
+        int highScore = GetHighScore();
+        string highScoreName = GetHighScoreName();
     }
 }

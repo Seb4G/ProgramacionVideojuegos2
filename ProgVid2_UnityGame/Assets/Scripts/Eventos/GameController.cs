@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,10 +12,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject menuControles;
     [SerializeField] private GameObject TextoTornillo;
     [SerializeField] private GameObject TextoJefe;
+    [SerializeField] private GameObject textoNombre;
+    [SerializeField] private TMP_InputField inputNombre;
+    [SerializeField] private GameObject confirmButton;
 
     private bool isPaused = false;
     private bool isMenuControlesActive = false;
     private bool canShowMenuControles = false;
+    private const string HighScoreNameKey = "HighScoreName";
 
     private void OnEnable()
     {
@@ -32,9 +38,10 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        StartCoroutine(EnableNameInputAfterDelay());
         if (TextoHerramientas != null)
         {
-            Invoke(nameof(ShowTextoHerramientas), 3f);
+            TextoHerramientas.SetActive(false);
         }
         if (TextoTornillo != null)
         {
@@ -48,7 +55,31 @@ public class GameManager : MonoBehaviour
         {
             menuControles.SetActive(false);
         }
-        Invoke(nameof(EnableMenuControles), 9f);
+        Invoke(nameof(EnableMenuControles), 7f);
+    }
+    private IEnumerator EnableNameInputAfterDelay()
+    {
+        yield return new WaitForSeconds(3f);
+
+        if (textoNombre != null)
+        {
+            textoNombre.SetActive(true);
+        }
+
+        if (inputNombre != null)
+        {
+            inputNombre.gameObject.SetActive(true);
+        }
+        if (confirmButton != null)
+        {
+            confirmButton.SetActive(true);
+        }
+
+        var playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.enabled = false;
+        }
     }
     private void Update()
     {
@@ -72,7 +103,60 @@ public class GameManager : MonoBehaviour
             ToggleMenuControles();
         }
     }
+    public void ConfirmarNombre()
+    {
+        if (inputNombre != null && !string.IsNullOrEmpty(inputNombre.text))
+        {
+            string playerName = inputNombre.text;
+            PlayerPrefs.SetString(HighScoreNameKey, playerName);
+            PlayerPrefs.Save();
 
+            var playerController = FindObjectOfType<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.enabled = true;
+            }
+
+            if (textoNombre != null)
+            {
+                textoNombre.SetActive(false);
+            }
+
+            if (inputNombre != null)
+            {
+                inputNombre.gameObject.SetActive(false);
+            }
+
+            GameObject confirmButton = GameObject.Find("ConfirmNameButton");
+            if (confirmButton != null)
+            {
+                confirmButton.SetActive(false);
+            }
+            if (TextoHerramientas != null)
+            {
+                TextoHerramientas.SetActive(true);
+                Invoke(nameof(HideTextoHerramientas), 5f);
+            }
+        }
+    }
+    public string GetPlayerName()
+    {
+        return PlayerPrefs.GetString(HighScoreNameKey, "No Name");
+    }
+    private void ShowTextoHerramientas()
+    {
+        if (AnyOtherMenuActive()) return;
+        TextoHerramientas.SetActive(true);
+        Invoke(nameof(HideTextoHerramientas), 5f);
+    }
+
+    private void HideTextoHerramientas()
+    {
+        if (TextoHerramientas != null)
+        {
+            TextoHerramientas.SetActive(false);
+        }
+    }
     private void Pause()
     {
         if (AnyOtherMenuActive()) return;
@@ -104,15 +188,38 @@ public class GameManager : MonoBehaviour
             playerController.enabled = false;
         }
 
+        var hudController = FindObjectOfType<HUDController>();
+        if (hudController != null)
+        {
+            int currentScore = hudController.GetCurrentScore();
+            int highScore = hudController.GetHighScore();
+            string highScoreName = hudController.GetHighScoreName();
+
+            TextMeshProUGUI[] texts = victoryMenu.GetComponentsInChildren<TextMeshProUGUI>();
+            foreach (var text in texts)
+            {
+                if (text.name == "HighScoreText")
+                {
+                    text.text = $"High Score: {highScore} by {highScoreName}";
+                }
+                else if (text.name == "CurrentScoreText")
+                {
+                    text.text = $"Your Score: {currentScore}";
+                }
+            }
+        }
+
+        if (hudController != null && hudController.textoPuntaje != null)
+        {
+            hudController.textoPuntaje.gameObject.SetActive(false);
+        }
+
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (AudioSource audioSource in audioSources)
         {
             audioSource.Stop();
         }
-
-        Invoke(nameof(QuitGame), 50f);
     }
-
     public void ShowTextoTornillo()
     {
         if (AnyOtherMenuActive()) return;
@@ -143,16 +250,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ShowTextoHerramientas()
-    {
-        if (AnyOtherMenuActive()) return;
-        TextoHerramientas.SetActive(true);
-        Invoke(nameof(HideTextoHerramientas), 5f);
-    }
-    private void HideTextoHerramientas()
-    {
-        TextoHerramientas.SetActive(false);
-    }
     private void EnableMenuControles()
     {
         canShowMenuControles = true;
@@ -160,7 +257,7 @@ public class GameManager : MonoBehaviour
 
     private void ToggleMenuControles()
     {
-        if (pauseMenu.activeSelf || AnyOtherMenuActive() && !isMenuControlesActive) return;
+        if (pauseMenu.activeSelf || gameOverMenu.activeSelf || victoryMenu.activeSelf) return;
         isMenuControlesActive = !isMenuControlesActive;
 
         if (isMenuControlesActive)
@@ -178,6 +275,21 @@ public class GameManager : MonoBehaviour
     }
     private void RestartScene()
     {
+        if (textoNombre != null)
+        {
+            textoNombre.SetActive(false);
+        }
+        if (inputNombre != null)
+        {
+            inputNombre.gameObject.SetActive(false);
+        }
+
+        GameObject confirmButton = GameObject.Find("ConfirmNameButton");
+        if (confirmButton != null)
+        {
+            confirmButton.SetActive(true);
+        }
+
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

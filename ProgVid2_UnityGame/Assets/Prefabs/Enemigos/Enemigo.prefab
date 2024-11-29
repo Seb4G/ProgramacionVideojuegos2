@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2198170386707383107}
   - component: {fileID: 5992254454804389508}
   - component: {fileID: 3677393530223318231}
-  - component: {fileID: 713637306344131807}
   - component: {fileID: 4068980413648577221}
   - component: {fileID: 2027312434089163400}
   - component: {fileID: -2139487819872888723}
@@ -163,20 +162,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2222223, y: 1.5555556}
   m_EdgeRadius: 0
---- !u!114 &713637306344131807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7032033240589230752}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e292d50b77b51f344a932a9f5424e164, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 5
-  jugador: {fileID: 0}
 --- !u!95 &4068980413648577221
 Animator:
   serializedVersion: 5
@@ -212,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 5
+  damageSound: {fileID: 8300000, guid: 8f0a415bc397b4e42919d52077e7e95e, type: 3}
 --- !u!114 &-2139487819872888723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,4 +228,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ea55841a3f71c4d8d7c92d0ed7fafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: 5
   animator: {fileID: 4068980413648577221}

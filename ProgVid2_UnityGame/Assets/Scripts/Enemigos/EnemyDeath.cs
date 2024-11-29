@@ -14,11 +14,11 @@ public class EnemyDeath : MonoBehaviour
         {
             animator.SetTrigger("Death");
         }
+        Destroy(gameObject, 1.5f);
         HUDController hudController = FindObjectOfType<HUDController>();
         if (hudController != null)
         {
             hudController.UpdateScore(points);
         }
-        Destroy(gameObject, 1.5f);
     }
 }

@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomba Generador
       objectReference: {fileID: 0}
+    - target: {fileID: 7744321479988382071, guid: 6a46e6f103628ac45af29a0a8ec48378, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -6579988447026722567, guid: 6a46e6f103628ac45af29a0a8ec48378, type: 3}
     m_RemovedGameObjects: []

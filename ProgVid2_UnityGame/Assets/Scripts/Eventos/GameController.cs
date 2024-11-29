@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
     private void ShowGameOverMenu()
     {
         gameOverMenu.SetActive(true);
-        Invoke("RestartScene", 10f);
+        Invoke("RestartScene", 5f);
     }
 
     private void ShowVictoryMenu()
